@@ -20,7 +20,13 @@
   ],
   "require": {
     "php": "~8.1.0 || ~8.2.0",
-    "pimcore/pimcore": "^10.6 || ^11.0"
+    "pimcore/pimcore": "^10.6 || ^11.0",
+    "symfony/config": "^5.4 || ^6.4",
+    "symfony/dependency-injection": "^5.4 || ^6.4",
+    "symfony/event-dispatcher": "^5.4 || ^6.4",
+    "symfony/http-foundation": "^5.4 || ^6.4",
+    "symfony/http-kernel": "^5.4 || ^6.4",
+    "symfony/routing": "^5.4 || ^6.4"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.39.0",

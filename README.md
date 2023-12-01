@@ -18,11 +18,24 @@
 
 ## Usage
 
-TODO
+This bundle allows you to configure the backend branding per environment.
+The current environment is determined through Symfony's [`kernel.runtime_environment`](https://symfony.com/doc/6.4/reference/configuration/kernel.html#kernel-runtime-environment) parameter,
+which can be set via the `APP_RUNTIME_ENV` environment variable.
+If not set, it falls back to the [`kernel.environment`](https://symfony.com/doc/6.4/reference/configuration/kernel.html#kernel-environment), 
+which is set via the `APP_ENV` environment variable.
 
 ## Configuration
 
-TODO
+```yaml
+neusta_pimcore_backend_branding:
+    environments:
+        dev:
+            bezelColor: '#fcc243'
+        staging:
+            bezelColor: '#005ea1'
+        prod:
+            bezelColor: '#00a13a'
+```
 
 ## Contribution
 
