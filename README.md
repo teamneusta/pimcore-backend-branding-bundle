@@ -30,10 +30,14 @@ which is set via the `APP_ENV` environment variable.
 neusta_pimcore_backend_branding:
     environments:
         dev:
+            title: ACME
             bezelColor: '#fcc243'
         staging:
             bezelColor: '#005ea1'
         prod:
+            title:
+                login: Welcome to ACME!
+                backend: '{hostname} :: ACME'
             favIcon: <url-of-your-fav-icon>
             bezelColor: '#00a13a'
             signet: # or just: <url-of-your-logo>

@@ -25,9 +25,10 @@ final class CssController
 
     public function __invoke(): Response
     {
+        $config = $this->config[$this->env] ?? [];
         $css = [];
 
-        if ($bezelColor = $this->config[$this->env]['bezelColor'] ?? null) {
+        if ($bezelColor = $config['bezelColor'] ?? null) {
             $css[] = <<<CSS
                 body.x-body #pimcore_body {
                     background-color: {$bezelColor};
@@ -44,7 +45,7 @@ final class CssController
                 CSS;
         }
 
-        if ($signet = $this->config[$this->env]['signet'] ?? null) {
+        if ($signet = $config['signet'] ?? null) {
             $css[] = <<<CSS
                 #pimcore_signet {
                     background-image: url({$signet['url']});
@@ -54,7 +55,7 @@ final class CssController
                 CSS;
         }
 
-        if ($tabBarIcon = $this->config[$this->env]['tabBarIcon'] ?? null) {
+        if ($tabBarIcon = $config['tabBarIcon'] ?? null) {
             $css[] = '#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {';
             $css[] = "    background-image: url({$tabBarIcon['url']});";
             if ($tabBarIcon['size']) {

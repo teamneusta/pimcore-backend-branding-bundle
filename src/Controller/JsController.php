@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\BackendBrandingBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 final class JsController
 {
     /**
-     * @param array<string, array{favIcon: string}> $config
+     * @param array<string, array{
+     *     favIcon: string,
+     *     title: array{login: string|null, backend: string|null},
+     * }> $config
      */
     public function __construct(
         private readonly string $env,
@@ -19,15 +23,10 @@ final class JsController
     ) {
     }
 
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
+        $config = $this->config[$this->env] ?? [];
         $js = [];
-
-        if ($favIcon = $this->config[$this->env]['favIcon'] ?? null) {
-            $js[] = <<<JS
-                document.querySelector("link[rel*='icon']").href = '{$favIcon}';
-                JS;
-        }
 
         return new Response(implode("\n", $js), Response::HTTP_OK, ['Content-type' => 'text/javascript']);
     }
