@@ -35,6 +35,10 @@ neusta_pimcore_backend_branding:
             bezelColor: '#005ea1'
         prod:
             bezelColor: '#00a13a'
+            signet: # or just: <url-of-your-logo>
+                url: <url-of-your-logo>
+                size: 70%
+                position: center
 ```
 
 ## Contribution
