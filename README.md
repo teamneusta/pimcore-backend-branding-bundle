@@ -34,6 +34,7 @@ neusta_pimcore_backend_branding:
         staging:
             bezelColor: '#005ea1'
         prod:
+            favIcon: <url-of-your-fav-icon>
             bezelColor: '#00a13a'
             signet: # or just: <url-of-your-logo>
                 url: <url-of-your-logo>

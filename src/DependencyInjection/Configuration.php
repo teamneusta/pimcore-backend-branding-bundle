@@ -21,6 +21,7 @@ final class Configuration implements ConfigurationInterface{
                     ->useAttributeAsKey('name')
                     ->arrayPrototype()
                         ->children()
+                            ->scalarNode('favIcon')->end()
                             ->scalarNode('bezelColor')->end()
                             ->append($this->createBackgroundImageNode('signet', '70%', 'center'))
                             ->append($this->createBackgroundImageNode('tabBarIcon'))
