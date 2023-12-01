@@ -14,6 +14,7 @@ final class CssController
      * @param array<string, array{
      *     bezelColor: string,
      *     signet: array{url: string, size: string, position: string},
+     *     tabBarIcon: array{url: string, size: string|null, position: string|null},
      * }> $config
      */
     public function __construct(
@@ -51,6 +52,18 @@ final class CssController
                     background-position: {$signet['position']};
                 }
                 CSS;
+        }
+
+        if ($tabBarIcon = $this->config[$this->env]['tabBarIcon'] ?? null) {
+            $css[] = '#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {';
+            $css[] = "    background-image: url({$tabBarIcon['url']});";
+            if ($tabBarIcon['size']) {
+                $css[] = "    background-size: {$tabBarIcon['size']};";
+            }
+            if ($tabBarIcon['position']) {
+                $css[] = "    background-position: {$tabBarIcon['position']};";
+            }
+            $css[] = '}';
         }
 
         return new Response(implode("\n", $css), Response::HTTP_OK, ['Content-type' => 'text/css']);
