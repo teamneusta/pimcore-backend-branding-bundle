@@ -13,6 +13,7 @@ final class CssController
     /**
      * @param array<string, array{
      *     bezelColor: string,
+     *     sidebarColor: string,
      *     signet: array{url: string, size: string, position: string},
      *     tabBarIcon: array{url: string, size: string|null, position: string|null},
      * }> $config
@@ -41,6 +42,14 @@ final class CssController
                 }
                 body.x-body #pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
                     background-color: {$bezelColor};
+                }
+                CSS;
+        }
+
+        if ($sidebarColor = $config['sidebarColor'] ?? null) {
+            $css[] = <<<CSS
+                #pimcore_sidebar {
+                    background-color: {$sidebarColor};
                 }
                 CSS;
         }

@@ -33,6 +33,7 @@ final class Configuration implements ConfigurationInterface{
                             ->end()
                             ->scalarNode('favIcon')->end()
                             ->scalarNode('bezelColor')->end()
+                            ->scalarNode('sidebarColor')->end()
                             ->append($this->createBackgroundImageNode('signet', '70%', 'center'))
                             ->append($this->createBackgroundImageNode('tabBarIcon'))
                         ->end()

@@ -31,9 +31,9 @@ neusta_pimcore_backend_branding:
     environments:
         dev:
             title: ACME
-            bezelColor: '#fcc243'
+            sidebarColor: '#fcc243'
         staging:
-            bezelColor: '#005ea1'
+            sidebarColor: '#005ea1'
         prod:
             title:
                 login: Welcome to ACME!
