@@ -43,12 +43,24 @@ final class CssController
                 body.x-body #pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
                     background-color: {$bezelColor};
                 }
+                #pimcore_loading.loaded {
+                    background-color: {$bezelColor};
+                }
+                .x-body .sf-minitoolbar {
+                    background-color: {$bezelColor};
+                }
                 CSS;
         }
 
         if ($sidebarColor = $config['sidebarColor'] ?? null) {
             $css[] = <<<CSS
                 #pimcore_sidebar {
+                    background-color: {$sidebarColor};
+                }
+                #pimcore_loading.loaded {
+                    background-color: {$sidebarColor};
+                }
+                .x-body .sf-minitoolbar {
                     background-color: {$sidebarColor};
                 }
                 CSS;
