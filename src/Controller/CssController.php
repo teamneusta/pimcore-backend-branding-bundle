@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\BackendBrandingBundle\Controller;
 
+use Neusta\Pimcore\BackendBrandingBundle\Css\CssProperty;
+use Neusta\Pimcore\BackendBrandingBundle\Css\CssRule;
+use Neusta\Pimcore\BackendBrandingBundle\Css\CssRuleList;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,78 +30,59 @@ final class CssController
     public function __invoke(): Response
     {
         $config = $this->config[$this->env] ?? [];
-        $css = [];
+        $css = new CssRuleList();
 
-        if ($bezelColor = $config['bezelColor'] ?? null) {
-            $css[] = <<<CSS
-                body.x-body #pimcore_body {
-                    background-color: {$bezelColor};
-                }
-                body.x-body #pimcore_loading.loaded {
-                    background-color: {$bezelColor};
-                }
-                body.x-body .sf-minitoolbar {
-                    background-color: {$bezelColor};
-                }
-                body.x-body #pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
-                    background-color: {$bezelColor};
-                }
-                #pimcore_loading.loaded {
-                    background-color: {$bezelColor};
-                }
-                .x-body .sf-minitoolbar {
-                    background-color: {$bezelColor};
-                }
-                CSS;
+        if (isset($config['bezelColor'])) {
+            $bezelColor = new CssProperty('background-color', $config['bezelColor']);
+            $css->addRule(new CssRule('body.x-body #pimcore_body', $bezelColor));
+            $css->addRule(new CssRule('body.x-body #pimcore_loading.loaded', $bezelColor));
+            $css->addRule(new CssRule('body.x-body .sf-minitoolbar', $bezelColor));
+            $css->addRule(new CssRule('body.x-body #pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar', $bezelColor));
+            $css->addRule(new CssRule('#pimcore_loading.loaded', $bezelColor));
+            $css->addRule(new CssRule('.x-body .sf-minitoolbar', $bezelColor));
         }
 
-        if ($sidebarColor = $config['sidebarColor'] ?? null) {
-            $css[] = <<<CSS
-                #pimcore_sidebar {
-                    background-color: {$sidebarColor};
-                }
-                #pimcore_loading.loaded {
-                    background-color: {$sidebarColor};
-                }
-                .x-body .sf-minitoolbar {
-                    background-color: {$sidebarColor};
-                }
-                CSS;
+        if (isset($config['sidebarColor'])) {
+            $sidebarColor = new CssProperty('background-color', $config['sidebarColor']);
+            $css->addRule(new CssRule('#pimcore_sidebar', $sidebarColor));
+            $css->addRule(new CssRule('#pimcore_loading.loaded', $sidebarColor));
+            $css->addRule(new CssRule('.x-body .sf-minitoolbar', $sidebarColor));
         }
 
-        if ($signet = $config['signet'] ?? null) {
-            $css[] = <<<CSS
-                #pimcore_signet {
-                    background-image: url({$signet['url']});
-                    background-size: {$signet['size']};
-                    background-position: {$signet['position']};
-                }
-                CSS;
+        if (isset($config['signet'])) {
+            $signet = new CssRule('#pimcore_signet',
+                new CssProperty('background-image', $config['signet']['url'], isUrl: true),
+                new CssProperty('background-size', $config['signet']['size']),
+                new CssProperty('background-position', $config['signet']['position']),
+            );
 
-            if (isset($signet['color'])) {
-                $css[] = <<<CSS
-                    #pimcore_avatar {
-                        background-color: {$signet['color']} !important;
-                    }
-                    #pimcore_signet {
-                        background-color: {$signet['color']} !important;
-                    }
-                    CSS;
+            if (isset($config['signet']['color'])) {
+                $signet->setProperty(new CssProperty('background-color', $config['signet']['color'], isImportant: true));
+
+                $css->addRule(new CssRule('#pimcore_avatar',
+                    new CssProperty('background-color', $config['signet']['color'], isImportant: true),
+                ));
             }
+
+            $css->addRule($signet);
         }
 
-        if ($tabBarIcon = $config['tabBarIcon'] ?? null) {
-            $css[] = '#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {';
-            $css[] = "    background-image: url({$tabBarIcon['url']});";
-            if (isset($tabBarIcon['size'])) {
-                $css[] = "    background-size: {$tabBarIcon['size']};";
+        if (isset($config['tabBarIcon'])) {
+            $tabBarIcon = new CssRule('#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar',
+                new CssProperty('background-image', $config['tabBarIcon']['url'], isUrl: true),
+            );
+
+            if (isset($config['tabBarIcon']['size'])) {
+                $tabBarIcon->setProperty(new CssProperty('background-size', $config['tabBarIcon']['size']));
             }
-            if (isset($tabBarIcon['position'])) {
-                $css[] = "    background-position: {$tabBarIcon['position']};";
+
+            if (isset($config['tabBarIcon']['position'])) {
+                $tabBarIcon->setProperty(new CssProperty('background-position', $config['tabBarIcon']['position']));
             }
-            $css[] = '}';
+
+            $css->addRule($tabBarIcon);
         }
 
-        return new Response(implode("\n", $css), Response::HTTP_OK, ['Content-type' => 'text/css']);
+        return new Response($css->toString(), Response::HTTP_OK, ['Content-type' => 'text/css']);
     }
 }
