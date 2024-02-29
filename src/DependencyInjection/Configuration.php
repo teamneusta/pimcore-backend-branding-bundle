@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\BackendBrandingBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -34,8 +33,29 @@ final class Configuration implements ConfigurationInterface{
                             ->scalarNode('favIcon')->end()
                             ->scalarNode('bezelColor')->end()
                             ->scalarNode('sidebarColor')->end()
-                            ->append($this->createBackgroundImageNode('signet', '70%', 'center'))
-                            ->append($this->createBackgroundImageNode('tabBarIcon'))
+                            ->arrayNode('signet')
+                                ->beforeNormalization()
+                                    ->ifString()
+                                    ->then(fn (string $v) => ['url' => $v, 'size' => '70%', 'position' => 'center'])
+                                ->end()
+                                ->children()
+                                    ->scalarNode('url')->isRequired()->cannotBeEmpty()->end()
+                                    ->scalarNode('size')->defaultValue('70%')->end()
+                                    ->scalarNode('position')->defaultValue('center')->end()
+                                    ->scalarNode('color')->defaultNull()->end()
+                                ->end()
+                            ->end()
+                            ->arrayNode('tabBarIcon')
+                                ->beforeNormalization()
+                                    ->ifString()
+                                    ->then(fn (string $v) => ['url' => $v])
+                                ->end()
+                                ->children()
+                                    ->scalarNode('url')->isRequired()->cannotBeEmpty()->end()
+                                    ->scalarNode('size')->defaultNull()->end()
+                                    ->scalarNode('position')->defaultNull()->end()
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
@@ -43,23 +63,5 @@ final class Configuration implements ConfigurationInterface{
         ;
 
         return $treeBuilder;
-    }
-
-    private function createBackgroundImageNode(
-        string $name,
-        string $defaultSize = null,
-        string $defaultPosition = null,
-    ): ArrayNodeDefinition {
-        return (new ArrayNodeDefinition($name))
-            ->beforeNormalization()
-                ->ifString()
-                ->then(fn (string $v) => ['url' => $v, 'size' => $defaultSize, 'position' => $defaultPosition])
-            ->end()
-            ->children()
-                ->scalarNode('url')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('size')->defaultValue($defaultSize)->end()
-                ->scalarNode('position')->defaultValue($defaultPosition)->end()
-            ->end()
-        ;
     }
 }

@@ -44,6 +44,7 @@ neusta_pimcore_backend_branding:
                 url: <url-of-your-logo>
                 size: 70%
                 position: center
+                color: '#000'
             tabBarIcon:
                 url: <url-of-your-logo>
                 size: 40px

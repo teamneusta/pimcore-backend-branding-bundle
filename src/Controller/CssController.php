@@ -14,7 +14,7 @@ final class CssController
      * @param array<string, array{
      *     bezelColor: string,
      *     sidebarColor: string,
-     *     signet: array{url: string, size: string, position: string},
+     *     signet: array{url: string, size: string, position: string, color: string|null},
      *     tabBarIcon: array{url: string, size: string|null, position: string|null},
      * }> $config
      */
@@ -74,15 +74,26 @@ final class CssController
                     background-position: {$signet['position']};
                 }
                 CSS;
+
+            if (isset($signet['color'])) {
+                $css[] = <<<CSS
+                    #pimcore_avatar {
+                        background-color: {$signet['color']} !important;
+                    }
+                    #pimcore_signet {
+                        background-color: {$signet['color']} !important;
+                    }
+                    CSS;
+            }
         }
 
         if ($tabBarIcon = $config['tabBarIcon'] ?? null) {
             $css[] = '#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {';
             $css[] = "    background-image: url({$tabBarIcon['url']});";
-            if ($tabBarIcon['size']) {
+            if (isset($tabBarIcon['size'])) {
                 $css[] = "    background-size: {$tabBarIcon['size']};";
             }
-            if ($tabBarIcon['position']) {
+            if (isset($tabBarIcon['position'])) {
                 $css[] = "    background-position: {$tabBarIcon['position']};";
             }
             $css[] = '}';
