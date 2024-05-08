@@ -1,3 +1,5 @@
 neusta_pimcore_backend_branding:
   resource: ../../src/Controller/
   type: annotation
+  prefix: /neusta/backend-branding
+  name_prefix: 'neusta_pimcore_backend_branding_'
