@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\BackendBrandingBundle\EventListener;
 
+use Neusta\Pimcore\BackendBrandingBundle\Settings;
 use Pimcore\Tool;
 use Pimcore\Tool\Session;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
@@ -17,15 +18,8 @@ final class BackendResponseListener
         'pimcore_admin_index',
     ];
 
-    /**
-     * @param array<string, array{
-     *     favIcon?: string,
-     *     title?: array{login: string|null, backend: string|null},
-     * }> $config
-     */
     public function __construct(
-        private readonly string $env,
-        private readonly array $config,
+        private readonly Settings $settings,
     ) {
     }
 
@@ -43,15 +37,14 @@ final class BackendResponseListener
 
         $response = $event->getResponse();
         $content = $response->getContent();
-        $config = $this->config[$this->env] ?? null;
 
-        if (!$content || !$config) {
+        if (!$content) {
             return;
         }
 
-        if ($titleConfig = $config['title'] ?? null) {
+        if (isset($this->settings->title)) {
             $loggedIn = null !== Session::getSessionBag($request->getSession(), 'pimcore_admin')?->get('user');
-            $title = $loggedIn ? $titleConfig['backend'] : $titleConfig['login'];
+            $title = $loggedIn ? $this->settings->title->backend : $this->settings->title->login;
 
             if ($title) {
                 $title = strtr($title, ['{hostname}' => htmlentities((string) Tool::getHostname(), \ENT_QUOTES, 'UTF-8')]);
@@ -67,10 +60,10 @@ final class BackendResponseListener
             }
         }
 
-        if ($favIcon = $config['favIcon'] ?? null) {
+        if (isset($this->settings->favIcon)) {
             $replaced = preg_replace(
                 '#<link rel="icon"[^>]+>#',
-                sprintf('<link rel="shortcut icon" href="%s">', $favIcon),
+                sprintf('<link rel="shortcut icon" href="%s">', $this->settings->favIcon),
                 $content,
             );
 

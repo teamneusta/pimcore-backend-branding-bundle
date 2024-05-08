@@ -6,25 +6,35 @@ namespace Neusta\Pimcore\BackendBrandingBundle\CssProvider;
 use Neusta\Pimcore\BackendBrandingBundle\Attributes\AsCssProvider;
 use Neusta\Pimcore\BackendBrandingBundle\Css\CssProperty;
 use Neusta\Pimcore\BackendBrandingBundle\Css\CssRule;
+use Neusta\Pimcore\BackendBrandingBundle\Settings;
 
 #[AsCssProvider]
 final class TabBarIcon
 {
+    public function __construct(
+        private readonly Settings $settings,
+    ) {
+    }
+
     /**
      * @return iterable<CssRule>
      */
-    public function __invoke(TabBarIconConfig $tabBarIcon): iterable
+    public function __invoke(): iterable
     {
-        $tabBarIconRule = new CssRule('#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar',
-            new CssProperty('background-image', $tabBarIcon->url, isUrl: true),
-        );
-
-        if (isset($tabBarIcon->size)) {
-            $tabBarIconRule->setProperty(new CssProperty('background-size', $tabBarIcon->size));
+        if (!isset($this->settings->tabBarIcon)) {
+            return;
         }
 
-        if (isset($tabBarIcon->position)) {
-            $tabBarIconRule->setProperty(new CssProperty('background-position', $tabBarIcon->position));
+        $tabBarIconRule = new CssRule('#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar',
+            new CssProperty('background-image', $this->settings->tabBarIcon->url, isUrl: true),
+        );
+
+        if (isset($this->settings->tabBarIcon->size)) {
+            $tabBarIconRule->setProperty(new CssProperty('background-size', $this->settings->tabBarIcon->size));
+        }
+
+        if (isset($this->settings->tabBarIcon->position)) {
+            $tabBarIconRule->setProperty(new CssProperty('background-position', $this->settings->tabBarIcon->position));
         }
 
         yield $tabBarIconRule;
