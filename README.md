@@ -1,5 +1,7 @@
 # Pimcore Backend Branding Bundle
 
+This bundle allows you to configure the branding of thr Pimcore admin backend.
+
 ## Installation
 
 1.  **Require the bundle**
@@ -16,38 +18,36 @@
    Neusta\Pimcore\BackendBrandingBundle\NeustaPimcoreBackendBrandingBundle::class => ['all' => true],
    ```
 
-## Usage
-
-This bundle allows you to configure the backend branding per environment.
-The current environment is determined through Symfony's [`kernel.runtime_environment`](https://symfony.com/doc/6.4/reference/configuration/kernel.html#kernel-runtime-environment) parameter,
-which can be set via the `APP_RUNTIME_ENV` environment variable.
-If not set, it falls back to the [`kernel.environment`](https://symfony.com/doc/6.4/reference/configuration/kernel.html#kernel-environment), 
-which is set via the `APP_ENV` environment variable.
-
 ## Configuration
 
 ```yaml
 neusta_pimcore_backend_branding:
-    environments:
-        dev:
-            title: ACME
-            sidebarColor: '#fcc243'
-        staging:
-            sidebarColor: '#005ea1'
-        prod:
-            title:
-                login: Welcome to ACME!
-                backend: '{hostname} :: ACME'
-            favIcon: <url-of-your-fav-icon>
-            bezelColor: '#00a13a'
-            signet: # or just: <url-of-your-logo>
-                url: <url-of-your-logo>
-                size: 70%
-                position: center
-                color: '#000'
-            tabBarIcon:
-                url: <url-of-your-logo>
-                size: 40px
+    favIcon: <url-of-your-fav-icon>
+    signet: # or just: <url-of-your-logo>
+        url: <url-of-your-logo>
+        size: 70%
+        position: center
+        color: '#000'
+    tabBarIcon:
+        url: <url-of-your-logo>
+        size: 40px
+
+when@dev:
+    neusta_pimcore_backend_branding:
+        title: ACME Development
+        sidebarColor: '#fcc243'
+
+when@test:
+    neusta_pimcore_backend_branding:
+        title: ACME Testing
+        sidebarColor: '#005ea1'
+
+when@prod:
+    neusta_pimcore_backend_branding:
+        title:
+            login: Welcome to ACME!
+            backend: '{hostname} :: ACME'
+        bezelColor: '#00a13a'
 ```
 
 ## Contribution

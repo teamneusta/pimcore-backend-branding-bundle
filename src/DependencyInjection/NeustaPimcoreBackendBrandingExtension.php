@@ -20,7 +20,7 @@ final class NeustaPimcoreBackendBrandingExtension extends ConfigurableExtension
         $loader = new PhpFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
         $loader->load('services.php');
 
-        $container->setParameter('neusta_pimcore_backend_branding.environments', $mergedConfig['environments']);
+        $container->setParameter('neusta_pimcore_backend_branding.config', $mergedConfig);
 
         $container->registerAttributeForAutoconfiguration(
             AsCssProvider::class,

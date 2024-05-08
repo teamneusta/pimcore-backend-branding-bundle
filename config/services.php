@@ -8,16 +8,12 @@ use Neusta\Pimcore\BackendBrandingBundle\CssProvider;
 use Neusta\Pimcore\BackendBrandingBundle\EventListener\BackendAssetsListener;
 use Neusta\Pimcore\BackendBrandingBundle\EventListener\BackendResponseListener;
 use Neusta\Pimcore\BackendBrandingBundle\Settings;
-use Neusta\Pimcore\BackendBrandingBundle\SettingsFactory;
 
 return static function (ContainerConfigurator $container) {
     $container->services()
         ->set(Settings::class)
-            ->factory([service(SettingsFactory::class), 'create'])
-            ->args(['%kernel.runtime_environment%'])
-        ->set(SettingsFactory::class)
-            ->arg('$config', param('neusta_pimcore_backend_branding.environments'))
-            ->arg('$denormalizer', service('serializer'))
+            ->factory([service('serializer'), 'denormalize'])
+            ->args([param('neusta_pimcore_backend_branding.config'), Settings::class])
         ->set(BackendAssetsListener::class)
             ->autoconfigure()
             ->arg('$urlGenerator', service('router'))
