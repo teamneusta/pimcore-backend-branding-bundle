@@ -7,10 +7,11 @@ use Neusta\Pimcore\BackendBrandingBundle\Attributes\AsCssProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-final class NeustaPimcoreBackendBrandingExtension extends ConfigurableExtension
+final class NeustaPimcoreBackendBrandingExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     /**
      * @param array<string, mixed> $mergedConfig
@@ -28,5 +29,22 @@ final class NeustaPimcoreBackendBrandingExtension extends ConfigurableExtension
                 $definition->addTag('neusta_pimcore_backend_branding.css_provider');
             },
         );
+    }
+
+    public function prepend(ContainerBuilder $container): void
+    {
+        $configs = $container->getExtensionConfig($this->getAlias());
+        $configs = $container->getParameterBag()->resolveValue($configs);
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        $container->prependExtensionConfig('pimcore_admin', [
+            'branding' => [
+                'color_admin_interface' => $config['backend']['color'],
+                'color_admin_interface_background' => $config['backend']['backgroundColor'],
+                'color_login_screen' => $config['login']['color'],
+                'login_screen_custom_image' => $config['login']['image'],
+                'login_screen_invert_colors' => $config['login']['invertColors'],
+            ],
+        ]);
     }
 }

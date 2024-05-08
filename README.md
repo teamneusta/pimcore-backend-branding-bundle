@@ -31,6 +31,14 @@ neusta_pimcore_backend_branding:
     tabBarIcon:
         url: <url-of-your-logo>
         size: 40px
+    # Configure Pimcore's own branding settings (pimcore_admin.branding)
+    login:
+        color: '#fff'               # => color_login_screen
+        invertColors: true          # => login_screen_invert_colors
+        image: <url-of-your-logo>   # => login_screen_custom_image
+    backend:
+        color: '#fff'               # => color_admin_interface
+        backgroundColor: '#000'     # => color_admin_interface_background
 
 when@dev:
     neusta_pimcore_backend_branding:
