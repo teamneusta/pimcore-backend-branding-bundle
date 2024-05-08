@@ -20,10 +20,4 @@ final class BackendAssetsListener
     {
         $event->addPaths([$this->urlGenerator->generate('neusta_pimcore_backend_branding_css')]);
     }
-
-    #[AsEventListener(BundleManagerEvents::JS_PATHS)]
-    public function addJs(PathsEvent $event): void
-    {
-        $event->addPaths([$this->urlGenerator->generate('neusta_pimcore_backend_branding_js')]);
-    }
 }
