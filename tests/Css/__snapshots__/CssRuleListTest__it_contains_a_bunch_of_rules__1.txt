@@ -1,0 +1,14 @@
+#some-rule {
+	color: blue;
+	margin: 0;
+	display: block;
+}
+
+.another-rule {
+	background-image: url("image.jpg");
+	padding: 0;
+}
+
+.some.specific .rule {
+	border: 5px solid black !important;
+}

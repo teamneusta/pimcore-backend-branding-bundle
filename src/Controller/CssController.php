@@ -21,7 +21,7 @@ final class CssController
         return new Response(
             $this->cssProvider->getRules()->toString(),
             Response::HTTP_OK,
-            ['Content-type' => 'text/css'],
+            ['Content-Type' => 'text/css'],
         );
     }
 }

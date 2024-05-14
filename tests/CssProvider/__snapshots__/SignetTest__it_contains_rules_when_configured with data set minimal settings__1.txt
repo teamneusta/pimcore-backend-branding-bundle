@@ -1,0 +1,5 @@
+#pimcore_signet {
+	background-image: url("signet.png");
+	background-size: 70%;
+	background-position: center;
+}

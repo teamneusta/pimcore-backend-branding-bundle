@@ -8,6 +8,16 @@ final class CssRuleList
     /** @var list<CssRule> */
     private array $rules = [];
 
+    /**
+     * @param iterable<CssRule> $rules
+     */
+    public function addRules(iterable $rules): void
+    {
+        foreach ($rules as $rule) {
+            $this->addRule($rule);
+        }
+    }
+
     public function addRule(CssRule $rule): void
     {
         $this->rules[] = $rule;

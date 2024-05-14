@@ -1,0 +1,52 @@
+body.x-body #pimcore_body {
+	background-color: #6428b4;
+}
+
+body.x-body #pimcore_loading.loaded {
+	background-color: #6428b4;
+}
+
+body.x-body .sf-minitoolbar {
+	background-color: #6428b4;
+}
+
+body.x-body #pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
+	background-color: #6428b4;
+}
+
+#pimcore_loading.loaded {
+	background-color: #6428b4;
+}
+
+.x-body .sf-minitoolbar {
+	background-color: #6428b4;
+}
+
+#pimcore_sidebar {
+	background-color: #028a0f;
+}
+
+#pimcore_loading.loaded {
+	background-color: #028a0f;
+}
+
+.x-body .sf-minitoolbar {
+	background-color: #028a0f;
+}
+
+#pimcore_signet {
+	background-image: url("logo.svg");
+	background-size: 70%;
+	background-position: center;
+	background-color: #000 !important;
+}
+
+#pimcore_avatar {
+	background-color: #000 !important;
+}
+
+#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
+	background-image: url("logo.svg");
+	background-size: 40px;
+	background-position: center;
+}

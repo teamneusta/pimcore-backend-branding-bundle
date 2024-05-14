@@ -21,9 +21,7 @@ final class CssProvider
         $css = new CssRuleList();
 
         foreach ($this->providers as $provider) {
-            foreach ($provider() as $rule) {
-                $css->addRule($rule);
-            }
+            $css->addRules($provider());
         }
 
         return $css;

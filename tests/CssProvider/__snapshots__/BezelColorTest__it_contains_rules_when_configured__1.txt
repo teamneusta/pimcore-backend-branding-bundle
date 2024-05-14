@@ -1,0 +1,23 @@
+body.x-body #pimcore_body {
+	background-color: #000;
+}
+
+body.x-body #pimcore_loading.loaded {
+	background-color: #000;
+}
+
+body.x-body .sf-minitoolbar {
+	background-color: #000;
+}
+
+body.x-body #pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
+	background-color: #000;
+}
+
+#pimcore_loading.loaded {
+	background-color: #000;
+}
+
+.x-body .sf-minitoolbar {
+	background-color: #000;
+}

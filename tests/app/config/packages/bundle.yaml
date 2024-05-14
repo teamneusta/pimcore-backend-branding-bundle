@@ -1,0 +1,14 @@
+neusta_pimcore_backend_branding:
+  title:
+    login: 'Welcome to ACME!'
+    backend: '{hostname} :: ACME'
+  favicon: logo.svg
+  signet:
+    url: logo.svg
+    color: '#000'
+  tab_bar_icon:
+    url: logo.svg
+    size: 40px
+    position: center
+  bezel_color: '#6428b4'
+  sidebar_color: '#028a0f'

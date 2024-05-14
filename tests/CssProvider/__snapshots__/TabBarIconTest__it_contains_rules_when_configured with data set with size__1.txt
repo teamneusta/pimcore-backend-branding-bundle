@@ -1,0 +1,4 @@
+#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
+	background-image: url("icon.png");
+	background-size: 90%;
+}

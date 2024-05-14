@@ -1,0 +1,10 @@
+#pimcore_signet {
+	background-image: url("signet.jpg");
+	background-size: 50%;
+	background-position: left;
+	background-color: #f00 !important;
+}
+
+#pimcore_avatar {
+	background-color: #f00 !important;
+}

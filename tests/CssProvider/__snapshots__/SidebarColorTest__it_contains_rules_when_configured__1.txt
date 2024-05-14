@@ -1,0 +1,11 @@
+#pimcore_sidebar {
+	background-color: #fff;
+}
+
+#pimcore_loading.loaded {
+	background-color: #fff;
+}
+
+.x-body .sf-minitoolbar {
+	background-color: #fff;
+}

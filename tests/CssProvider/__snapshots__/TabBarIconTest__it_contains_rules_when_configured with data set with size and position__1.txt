@@ -1,0 +1,5 @@
+#pimcore_panel_tabs > .x-panel-bodyWrap > .x-tab-bar {
+	background-image: url("icon.gif");
+	background-size: 70%;
+	background-position: right;
+}
