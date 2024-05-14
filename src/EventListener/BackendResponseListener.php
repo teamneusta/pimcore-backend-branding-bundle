@@ -60,10 +60,10 @@ final class BackendResponseListener
             }
         }
 
-        if (isset($this->settings->favIcon)) {
+        if (isset($this->settings->favicon)) {
             $replaced = preg_replace(
                 '#<link rel="icon"[^>]+>#',
-                sprintf('<link rel="shortcut icon" href="%s">', $this->settings->favIcon),
+                sprintf('<link rel="shortcut icon" href="%s">', $this->settings->favicon),
                 $content,
             );
 

@@ -40,10 +40,10 @@ final class NeustaPimcoreBackendBrandingExtension extends ConfigurableExtension 
         $container->prependExtensionConfig('pimcore_admin', [
             'branding' => [
                 'color_admin_interface' => $config['backend']['color'],
-                'color_admin_interface_background' => $config['backend']['backgroundColor'],
+                'color_admin_interface_background' => $config['backend']['background_color'],
                 'color_login_screen' => $config['login']['color'],
                 'login_screen_custom_image' => $config['login']['image'],
-                'login_screen_invert_colors' => $config['login']['invertColors'],
+                'login_screen_invert_colors' => $config['login']['invert_colors'],
             ],
         ]);
     }

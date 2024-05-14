@@ -22,40 +22,40 @@ This bundle allows you to configure the branding of thr Pimcore admin backend.
 
 ```yaml
 neusta_pimcore_backend_branding:
-    favIcon: <url-of-your-fav-icon>
+    favicon: <url-of-your-fav-icon>
     signet: # or just: <url-of-your-logo>
         url: <url-of-your-logo>
         size: 70%
         position: center
         color: '#000'
-    tabBarIcon:
+    tab_bar_icon:
         url: <url-of-your-logo>
         size: 40px
     # Configure Pimcore's own branding settings (pimcore_admin.branding)
     login:
         color: '#fff'               # => color_login_screen
-        invertColors: true          # => login_screen_invert_colors
+        invert_colors: true         # => login_screen_invert_colors
         image: <url-of-your-logo>   # => login_screen_custom_image
     backend:
         color: '#fff'               # => color_admin_interface
-        backgroundColor: '#000'     # => color_admin_interface_background
+        background_color: '#000'    # => color_admin_interface_background
 
 when@dev:
     neusta_pimcore_backend_branding:
         title: ACME Development
-        sidebarColor: '#fcc243'
+        sidebar_color: '#fcc243'
 
 when@test:
     neusta_pimcore_backend_branding:
         title: ACME Testing
-        sidebarColor: '#005ea1'
+        sidebar_color: '#005ea1'
 
 when@prod:
     neusta_pimcore_backend_branding:
         title:
             login: Welcome to ACME!
             backend: '{hostname} :: ACME'
-        bezelColor: '#00a13a'
+        bezel_color: '#00a13a'
 ```
 
 ## Contribution
