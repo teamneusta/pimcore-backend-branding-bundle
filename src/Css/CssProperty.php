@@ -16,8 +16,8 @@ final class CssProperty
     public function __toString(): string
     {
         $property = $this->isUrl
-            ? sprintf('%s: url("%s")', $this->name, $this->value)
-            : sprintf('%s: %s', $this->name, $this->value);
+            ? \sprintf('%s: url("%s")', $this->name, $this->value)
+            : \sprintf('%s: %s', $this->name, $this->value);
 
         if ($this->isImportant) {
             $property .= ' !important';
