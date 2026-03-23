@@ -18,14 +18,30 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Pimcore 11
           - php-version: "8.1"
-            dependencies: "lowest" # Pimcore 10.6.0
+            dependencies: "lowest" # Pimcore 11.5.0
           - php-version: "8.1"
             dependencies: "highest" # Pimcore 11.*
-            phpunit-flags: "--fail-on-risky"
+          - php-version: "8.2"
+            dependencies: "lowest" # Pimcore 11.5.0
           - php-version: "8.2"
             dependencies: "highest" # Pimcore 11.*
-            phpunit-flags: "--fail-on-risky"
+          - php-version: "8.3"
+            dependencies: "lowest" # Pimcore 11.5.0
+          - php-version: "8.3"
+            dependencies: "highest" # Pimcore 11.*
+            composer-options: "--with=pimcore/pimcore:^11.5"
+          # Pimcore 12
+          - php-version: "8.3"
+            dependencies: "lowest" # Pimcore 12.0.0
+            composer-options: "--with=pimcore/pimcore:12.0.0"
+          - php-version: "8.3"
+            dependencies: "highest" # Pimcore 12.*
+          - php-version: "8.4"
+            dependencies: "lowest" # Pimcore 12.0.0
+          - php-version: "8.4"
+            dependencies: "highest" # Pimcore 12.*
 
     env:
       MYSQL_HOST: 127.0.0.1
@@ -33,11 +49,11 @@ jobs:
       MYSQL_USER: root
       MYSQL_PASSWORD: pimcore
       MYSQL_DATABASE: pimcore
-      MYSQL_SERVER_VERSION: "10.11.5-MariaDB"
+      MYSQL_SERVER_VERSION: "10.11.16-MariaDB"
 
     services:
       mariadb:
-        image: mariadb:10.11.5
+        image: mariadb:10.11.16
         env:
           MYSQL_ROOT_PASSWORD: pimcore
         options: >-
@@ -50,15 +66,15 @@ jobs:
 
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: PHP Setup
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
 
       - name: Install dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
 
@@ -67,4 +83,14 @@ jobs:
         if: matrix.dependencies == 'highest'
 
       - name: Execute tests
-        run: composer tests -- ${{ matrix.phpunit-flags }}
+        env:
+          PIMCORE_ENCRYPTION_SECRET: ${{ secrets.PIMCORE_ENCRYPTION_SECRET }}
+          PIMCORE_INSTANCE_IDENTIFIER: ${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}
+          PIMCORE_PRODUCT_KEY: ${{ secrets.PIMCORE_PRODUCT_KEY }}
+        run: |
+          phpunit_options="--disallow-test-output"
+          if [[ "${{ matrix.php-version }}" == "8.4" && "${{ matrix.dependencies }}" == "lowest" ]]; then
+            phpunit_options=""
+          fi
+
+          composer tests -- $phpunit_options

@@ -1,7 +1,7 @@
 {
   "name": "teamneusta/pimcore-backend-branding-bundle",
   "description": "Configurable branding for the Pimcore admin backend",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "type": "pimcore-bundle",
   "keywords": [
     "pimcore"
@@ -19,28 +19,28 @@
     }
   ],
   "require": {
-    "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-    "pimcore/pimcore": "^10.6 || ^11.0",
-    "symfony/config": "^5.4 || ^6.4",
-    "symfony/dependency-injection": "^5.4 || ^6.4",
-    "symfony/event-dispatcher": "^5.4 || ^6.4",
-    "symfony/http-foundation": "^5.4 || ^6.4",
-    "symfony/http-kernel": "^5.4 || ^6.4",
-    "symfony/routing": "^5.4 || ^6.4",
-    "symfony/serializer": "^5.4 || ^6.4"
+    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+    "pimcore/admin-ui-classic-bundle": "^1.0 || ^2.0",
+    "pimcore/pimcore": "^11.5 || ^12.0",
+    "symfony/config": "^6.4 || ^7.4",
+    "symfony/dependency-injection": "^6.4 || ^7.4",
+    "symfony/event-dispatcher": "^6.4 || ^7.4",
+    "symfony/http-foundation": "^6.4 || ^7.4",
+    "symfony/http-kernel": "^6.4 || ^7.4",
+    "symfony/routing": "^6.4 || ^7.4",
+    "symfony/serializer": "^6.4 || ^7.4"
   },
   "require-dev": {
-    "dama/doctrine-test-bundle": "^6.0 || ^7.3",
+    "dama/doctrine-test-bundle": "^6.0 || ^7.3 || ^8.0",
     "ergebnis/composer-normalize": "^2.43.0",
     "friendsofphp/php-cs-fixer": "^3.64",
-    "laminas/laminas-zendframework-bridge": "^1.8",
     "phpstan/extension-installer": "^1.4.2",
-    "phpstan/phpstan": "^1.12.1",
-    "phpstan/phpstan-phpunit": "^1.4.0",
-    "phpstan/phpstan-symfony": "^1.4.8",
+    "phpstan/phpstan": "^2.1.42",
+    "phpstan/phpstan-phpunit": "^2.0.16",
+    "phpstan/phpstan-symfony": "^2.0.15",
     "phpunit/phpunit": "^9.6.20",
     "spatie/phpunit-snapshot-assertions": "^4.2.17",
-    "symfony/browser-kit": "^5.4 || ^6.4.8",
+    "symfony/browser-kit": "^6.4 || ^7.4",
     "teamneusta/pimcore-testing-framework": "^0.12.5"
   },
   "autoload": {
@@ -59,7 +59,11 @@
   "config": {
     "allow-plugins": {
       "ergebnis/composer-normalize": true,
+      "php-http/discovery": true,
       "phpstan/extension-installer": true
+    },
+    "audit": {
+      "block-insecure": false
     },
     "sort-packages": true
   },
