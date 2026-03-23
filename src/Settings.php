@@ -8,7 +8,6 @@ use Neusta\Pimcore\BackendBrandingBundle\Settings\TabBarIcon;
 use Neusta\Pimcore\BackendBrandingBundle\Settings\Title;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-/** @immutable */
 final class Settings
 {
     public ?Title $title;
