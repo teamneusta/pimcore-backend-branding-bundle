@@ -5,7 +5,7 @@ namespace Neusta\Pimcore\BackendBrandingBundle\EventListener;
 
 use Neusta\Pimcore\BackendBrandingBundle\Settings;
 use Pimcore\Tool;
-use Pimcore\Tool\Session;
+use Pimcore\Tool\Admin;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
@@ -43,8 +43,9 @@ final class BackendResponseListener
         }
 
         if (isset($this->settings->title)) {
-            $loggedIn = null !== Session::getSessionBag($request->getSession(), 'pimcore_admin')?->get('user');
-            $title = $loggedIn ? $this->settings->title->backend : $this->settings->title->login;
+            $title = null !== Admin::getCurrentUser()
+                ? $this->settings->title->backend
+                : $this->settings->title->login;
 
             if ($title) {
                 $title = strtr($title, ['{hostname}' => htmlentities((string) Tool::getHostname(), \ENT_QUOTES, 'UTF-8')]);
