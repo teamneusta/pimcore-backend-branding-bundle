@@ -6,9 +6,8 @@ namespace Neusta\Pimcore\BackendBrandingBundle;
 use Neusta\Pimcore\BackendBrandingBundle\Settings\Signet;
 use Neusta\Pimcore\BackendBrandingBundle\Settings\TabBarIcon;
 use Neusta\Pimcore\BackendBrandingBundle\Settings\Title;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
-/** @immutable */
 final class Settings
 {
     public ?Title $title;

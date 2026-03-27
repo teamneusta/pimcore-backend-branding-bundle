@@ -6,7 +6,7 @@ namespace Neusta\Pimcore\BackendBrandingBundle\Controller;
 use Neusta\Pimcore\BackendBrandingBundle\CssProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController, Route('/css', name: 'css')]
 final class CssController
